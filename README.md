@@ -69,7 +69,7 @@
 # 第2.2步:创建子类模块web类，打包为war包
 和2.1不同的是maven选择webapp或者 Spring Initializr，然后打包为war包
 
-# 第3.1步：pom文件的详细配置
+# 第3步：pom文件的详细配置
 ## 父工程pom.xml详细配置
  需要加入springboot提供的父工程：
  
@@ -173,7 +173,7 @@
             <artifactId>core</artifactId>
         </dependency>
 ```
- web工程pom。xml详细配置为：<br>
+ web工程pom.xml详细配置为：<br>
  ```xml
  <?xml version="1.0" encoding="UTF-8"?>
 
@@ -270,6 +270,8 @@
     </build>
 </project>
  ```
+ # 第4步：core工程实体类，dao层，service层代码实现
+ ## 4.1：实体类实现：
  
  
  
