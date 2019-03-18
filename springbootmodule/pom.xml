@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.ouxuxi</groupId>
+    <artifactId>springboot-module</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>core</module>
+        <module>web</module>
+    </modules>
+
+    <!--设置它的打包方式，自己添加的-->
+    <packaging>pom</packaging>
+
+    <!--&lt;!&ndash;全局配置依赖：实现父工程控制所有子工程依赖的效果&ndash;&gt;
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.16.16</version>
+        </dependency>
+    </dependencies>-->
+
+    <!-- 继承说明：这里继承SpringBoot提供的父工程 -->
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.1.0.RELEASE</version>
+        <relativePath/>
+    </parent>
+
+
+    <!-- dependencyManagement 可以把所有子模块用到的依赖都声明在此包括版本号，然后子模块需要显式的引用但不需要配置版本号！！！ -->
+    <dependencyManagement>
+        <dependencies>
+            <!--子模块core-->
+            <dependency>
+                <groupId>com.ouxuxi</groupId>
+                <artifactId>core</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+            <!--子模块web-->
+            <dependency>
+                <groupId>com.ouxuxi</groupId>
+                <artifactId>web</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+
+            <!--热部署配置-->
+            <dependency>
+                 <groupId>org.springframework.boot</groupId>
+                 <artifactId>spring-boot-devtools</artifactId>
+                 <version>2.0.4.RELEASE</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.mybatis.spring.boot</groupId>
+                <artifactId>mybatis-spring-boot-starter</artifactId>
+                <version>1.3.1</version>
+            </dependency>
+
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>8.0.11</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+</project>
