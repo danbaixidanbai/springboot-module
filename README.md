@@ -270,7 +270,7 @@
     </build>
 </project>
  ```
- # 第4步：core工程实体类，dao层，service层代码实现
+ # 第4步：core工程实体类，dao层，service层代码实现(可以将每层再细分为更小的子模块，这里偷懒)
  ## 数据库为user,表为users;
  ## 4.1：实体类实现：
  在core工程/src/main/java/com/entity下新建User：
