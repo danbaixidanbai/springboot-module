@@ -530,7 +530,7 @@ public class WebApplication {
  
  # 第6步：运行项目
  运行启动类main方法 在浏览器运行<br>
- localhost:8080/web/user/test若成功则会看到Result的json对象显示在浏览器
+ localhost:8080/user/test若成功则会看到Result的json对象显示在浏览器
   # 第7步：部署项目
   在maven
  
