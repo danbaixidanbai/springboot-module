@@ -1,4 +1,4 @@
-# SpringBoot多模块的maven配置
+# SpringBoot多模块的maven配置整合mybatis
 编译器使用idea,参考github：https://github.com/vector4wang/spring-boot-quick/tree/master/quick-modules
 # 为什么模块开发
   先举个栗子，同一张数据表，可能要在多个项目中或功能中使用，所以就有可能在每个模块都要搞一个mybatis去配置。如果一开始规定说这张表一定不可以改字段属性，那么没毛病。但是事实上， 一张表从项目开始到结束，不知道被改了多少遍，所以，你有可能在多个项目中去改mybatis改到吐血！<br> 
