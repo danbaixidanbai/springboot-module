@@ -272,7 +272,7 @@
  ```
  # 第4步：core工程实体类，dao层，service层代码实现
  ## 4.1：实体类实现：
- ![]https://github.com/danbaixidanbai/springboot-module/tree/master/photo/demo1.png
+ ![](https://github.com/danbaixidanbai/springboot-module/tree/master/photo/demo1.png)
  
  
  
