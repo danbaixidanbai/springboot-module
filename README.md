@@ -320,12 +320,218 @@ public class User {
     }
 }
 ```
+
+  在core工程/src/main/java/com/common下新建Result用于返回处理结果：
+  ```java
+  package com.common;
+
+import java.io.Serializable;
+
+public class Result<T> implements Serializable {
+    private static final long serialVersionUID = -4577255781088498763L;
+    private static final int OK = 0;
+    private static final int FAIL = 1;
+    private static final int UNAUTHORIZED = 2;
+
+    private T data; //服务端数据
+    private int status = OK; //状态码
+    private String msg = ""; //描述信息
+
+    public T getData() {
+        return data;
+    }
+
+    public void setData(T data) {
+        this.data = data;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
+
+    //APIS
+    public static Result isOk(){
+        return new Result();
+    }
+    public static Result isFail(){
+        return new Result().status(FAIL);
+    }
+    public static Result isFail(Throwable e){
+        return isFail().msg(e);
+    }
+    public Result msg(Throwable e){
+        this.setMsg(e.toString());
+        return this;
+    }
+    public Result data(T data){
+        this.setData(data);
+        return this;
+    }
+    public Result status(int status){
+        this.setStatus(status);
+        return this;
+    }
+
+
+    //Constructors
+    public Result() {
+
+    }
+
+}
+```
+## 4.2：dao层实现：
+在core工程/src/main/java/com/dao下新建接口UserDao:<br>
+```java
+package com.dao;
+
+import com.entity.User;
+
+import java.util.List;
+
+public interface UserDao {
+    public  List<User> getUserList();
+
+}
+```
+在core工程/src/main/resources/mapper下新建mybatis映射文件：UserDao.xml:<br>
+```xml
+<?xml version="1.0" encoding="utf-8" ?>
+        <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.dao.UserDao">
+         <select id="getUserList" resultType="com.entity.User">
+             select * from users
+        </select>
+</mapper>
+```
+ ## 4.3：service层实现：
+ 在core工程/src/main/java/com/service下新建接口UserService:<br>
+ ```java
+ package com.service;
+
+import com.common.Result;
+import com.entity.User;
+
+import java.util.List;
+
+public interface UserService {
+
+    public Result<List<User>> queryUserList();
+}
+```
+ 在core工程/src/main/java/com/service/impl下新建接口实现类UserServiceImpl:<br>
+ ```java
+package com.service.impl;
+
+import com.common.Result;
+import com.dao.UserDao;
+import com.entity.User;
+import com.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import javax.annotation.Resource;
+import java.util.List;
+
+@Service
+public class UserServiceImpl implements UserService {
+
+    @Resource
+    private UserDao userDao;
+    @Override
+    public Result<List<User>> queryUserList() {
+        List<User> userList=userDao.getUserList();
+        Result<List<User>> result=new Result<List<User>>();
+        if(userList.size()>0){
+            result.data(userList);
+            result.status(0);
+        }else{
+            result.status(1);
+        }
+        return result;
+    }
+}
+```
+ # 第5步：web层代码实现
+ ## 5.1：controller层实现：
+ 在web工程/src/main/java/com/controller下新建UserController:<br>
+ ```java
+ package com.controller;
+
+import com.common.Result;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import com.service.UserService;
+
+@RestController
+@RequestMapping("/user")
+public class UserController {
+
+    @Autowired
+    private UserService userService;
+
+    @GetMapping("/test")
+    private Result getUserlist(){
+        return userService.queryUserList();
+    }
+}
+```
+在web工程/src/main/resources下配置springboot配置文件application.yml：<br>
+```yml
+server:
+  port: 8080
+
+mybatis:
+  type-aliases-package: com.entity
+  mapper-locations: classpath:mapper/*.xml
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/user?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT&useSSL=false
+    username: root
+    password: 123456
+
+```
+在web工程/src/main/com下配置springboot启动类WebApplication:<br>
+```java
+package com;
+
+import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+
+@SpringBootApplication
+@MapperScan("com.dao")
+public class WebApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(WebApplication.class,args);
+    }
+}
+```
  
- 
- 
- 
- 
- 
+ # 第6步：运行项目
+ 运行启动类main方法 在浏览器运行<br>
+ localhost:8080/web/user/test若成功则会看到Result的json对象显示在浏览器
+  # 第7步：部署项目
+  在maven
  
  
 
