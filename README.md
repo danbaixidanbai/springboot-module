@@ -272,8 +272,54 @@
  ```
  # 第4步：core工程实体类，dao层，service层代码实现
  ## 4.1：实体类实现：
- ![image](http://github.com/danbaixidanbai/springboot-module/tree/master/photo/demo1.png)
+ 在core工程/src/main/java/com/entity下新建User：
  
+ ```java
+ package com.entity;
+ 
+public class User {
+    private int id;
+    private String userName;
+    private String password;
+
+    public User() {
+    }
+    public User(int id, String userName, String password) {
+        this.id = id;
+        this.userName = userName;
+        this.password = password;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString();
+    }
+}
+```
  
  
  
