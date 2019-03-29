@@ -84,35 +84,11 @@
   ```
   
 全局配置依赖：实现父工程控制所有子工程依赖的效果<br>
-第一种方法：在父模块pom中加入:<br>
-```xml
-<!--全局配置依赖：实现父工程控制所有子工程依赖的效果-->
-    <dependencies>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.16.16</version>
-        </dependency>
-    </dependencies>
- ```
- 
-第二种方法：通过<dependcyManagent>:可以把所有子模块用到的依赖都声明在此包括版本号，然后子模块需要显式的引用但不需要配置版本号！！！<br>
+通过<dependcyManagent>:可以把所有子模块用到的依赖都声明在此包括版本号，然后子模块需要显式的引用但不需要配置版本号！！！<br>
   ```xml
    <!-- dependencyManagement 可以把所有子模块用到的依赖都声明在此包括版本号，然后子模块需要显式的引用但不需要配置版本号！！！ -->
     <dependencyManagement>
         <dependencies>
-            <!--子模块core-->
-            <dependency>
-                <groupId>com.ouxuxi</groupId>
-                <artifactId>core</artifactId>
-                <version>1.0-SNAPSHOT</version>
-            </dependency>
-            <!--子模块web-->
-            <dependency>
-                <groupId>com.ouxuxi</groupId>
-                <artifactId>web</artifactId>
-                <version>1.0-SNAPSHOT</version>
-            </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-web</artifactId>
